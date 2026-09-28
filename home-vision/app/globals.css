@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f3efe7;
+  --ink: #1c1916;
+  --muted: #6f675e;
+  --line: rgba(28, 25, 22, 0.18);
+  --danger: #8d3b32;
+  --sky: #c9d8e8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 420px at 50% -80px, #fbf8f2 0%, transparent 70%),
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--font-outfit), sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.landing {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px 64px;
+}
+
+.landing-inner {
+  width: min(100%, 460px);
+}
+
+.mark {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(64px, 9vw, 92px);
+  font-weight: 450;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+}
+
+.lede {
+  margin: 22px 0 0;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.button {
+  height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.button.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  cursor: progress;
+  opacity: 0.5;
+  transform: none;
+}
+
+.recommend,
+.status,
+.empty-copy {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.recommend {
+  max-width: 46ch;
+  margin: 28px 0 0;
+}
+
+.status {
+  min-height: 1.6em;
+  margin: 18px 0 0;
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.viewer {
+  position: relative;
+  height: 100dvh;
+  background: var(--sky);
+  overflow: hidden;
+}
+
+.viewer canvas {
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud-top,
+.hud-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px;
+}
+
+.hud-bottom {
+  bottom: 0;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.house-name,
+.back-link,
+.modes,
+.hint {
+  pointer-events: auto;
+}
+
+.house-name {
+  color: white;
+  text-shadow: 0 1px 10px rgba(20, 24, 28, 0.35);
+}
+
+.house-name span,
+.hint {
+  display: block;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.house-name strong {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 28px;
+  font-weight: 450;
+  letter-spacing: -0.03em;
+}
+
+.back-link {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 1px 8px rgba(20, 24, 28, 0.35);
+}
+
+.modes {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(22, 18, 14, 0.78);
+  color: #f6f1e8;
+  backdrop-filter: blur(10px);
+}
+
+.modes button {
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.modes button.active {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.hint {
+  margin-top: 10px;
+  text-shadow: 0 1px 8px rgba(20, 24, 28, 0.4);
+}
+
+.empty {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.empty a {
+  color: var(--ink);
+}

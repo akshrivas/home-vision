@@ -1,0 +1,16 @@
+export const DEFAULTS = {
+  wallHeight: 2.8,
+  floorToFloor: 3.05,
+  exteriorThickness: 0.22,
+  interiorThickness: 0.15,
+  balconyRailHeight: 1.05,
+  balconyRailThickness: 0.04,
+  doorWidth: 0.9,
+  doorHeight: 2.1,
+  windowWidth: 1.2,
+  windowHeight: 1.2,
+  windowSill: 0.9,
+  playerRadius: 0.22,
+  eyeHeight: 1.62,
+  walkSpeed: 2.35,
+};
