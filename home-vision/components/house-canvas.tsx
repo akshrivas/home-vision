@@ -103,7 +103,7 @@ function Experience({
   const hadPointerLock = useRef(false);
   const keys = useKeys();
   const colliders = useMemo(() => collidersFor(house), [house]);
-  const touch = useMemo(() => isCoarsePointer(), []);
+  const touch = isCoarsePointer();
 
   useEffect(() => {
     if (mode !== "orbit") return;

@@ -13,5 +13,9 @@ export function createWalkAxes(): WalkAxes {
 
 export function isCoarsePointer(): boolean {
   if (typeof window === "undefined") return false;
-  return window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
+  return (
+    window.matchMedia("(pointer: coarse)").matches ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(max-width: 820px)").matches
+  );
 }
