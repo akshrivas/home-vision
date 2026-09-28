@@ -38,7 +38,6 @@ The landing page and the 3D viewer are up. The sample-plan route returns a house
 ## Run locally
 
 ```bash
-cd home-vision
 npm install
 npm run dev
 ```
