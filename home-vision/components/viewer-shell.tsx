@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { WalkJoystick } from "@/components/walk-joystick";
 import { loadHouse } from "@/lib/storage";
 import type { House } from "@/lib/house/types";
@@ -15,8 +15,15 @@ const HouseCanvas = dynamic(() => import("@/components/house-canvas"), {
 export function ViewerShell() {
   const [house] = useState<House | null>(() => loadHouse());
   const [mode, setMode] = useState<"orbit" | "walk">("orbit");
-  const [touch] = useState(() => isCoarsePointer());
+  const [touch, setTouch] = useState(false);
   const axesRef = useRef(createWalkAxes());
+
+  useEffect(() => {
+    const update = () => setTouch(isCoarsePointer());
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   if (!house) {
     return (
