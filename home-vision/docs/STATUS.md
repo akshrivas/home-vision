@@ -17,7 +17,9 @@ A sample floor plan can be read by a vision model, turned into a House JSON mode
 - Server route sends the file to a vision model (`gpt-4.1` by default) and validates a structured reading.
 - That reading is normalized into the House model: plot, floors, rooms, walls, doors, windows, stairs, metadata.
 - React Three Fiber builds the mesh from that model only. The sample house is not hardcoded in the viewer.
-- Orbit and walk controls are in the viewer. Walk uses pointer look, WASD, wall collision, and stair height.
+- Orbit and walk controls are in the viewer. Desktop walk uses pointer lock + WASD; mobile walk uses touch look + on-screen joystick, with wall collision and stair height.
+- Door openings render with jambs, header, threshold, and a leaf hinged in the frame so they read as connected doorways.
+- Landing and viewer HUD are laid out for small screens (safe areas, stacked actions, larger mode controls).
 - Sample plan extraction has produced the labelled spaces on that sheet: kitchen, entry, living, two bedrooms, bath, balcony, parking, and a stair.
 
 ## Not done

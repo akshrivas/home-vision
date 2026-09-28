@@ -53,7 +53,7 @@ function FloorLevel({ floor, floors }: { floor: Floor; floors: Floor[] }) {
       ))}
       {floor.doors.map((door) => {
         const wall = floor.walls.find((item) => item.id === door.wallId);
-        return wall ? <DoorLeaf key={door.id} wall={wall} door={door} elevation={floor.elevation} /> : null;
+        return wall ? <DoorAssembly key={door.id} wall={wall} door={door} elevation={floor.elevation} /> : null;
       })}
       {floor.windows.map((window) => {
         const wall = floor.walls.find((item) => item.id === window.wallId);
@@ -127,16 +127,44 @@ function WallMesh({ floor, wall }: { floor: Floor; wall: Wall }) {
   );
 }
 
-function DoorLeaf({ wall, door, elevation }: { wall: Wall; door: Floor["doors"][number]; elevation: number }) {
+function DoorAssembly({ wall, door, elevation }: { wall: Wall; door: Floor["doors"][number]; elevation: number }) {
   const angle = Math.atan2(wall.b.y - wall.a.y, wall.b.x - wall.a.x);
-  const hinge = pointAlong(wall.a, wall.b, Math.max(0, door.offset - door.width / 2));
-  const leaf = Math.max(0.42, door.width - 0.08);
+  const center = pointAlong(wall.a, wall.b, door.offset);
+  const width = Math.max(0.7, door.width);
+  const height = Math.max(1.8, door.height);
+  const depth = Math.max(0.12, wall.thickness);
+  const jamb = 0.07;
+  const leaf = Math.max(0.45, width - jamb * 2 - 0.02);
+  const frameColor = "#ebe4d8";
+
   return (
-    <group position={[hinge.x, elevation, hinge.y]} rotation={[0, -angle, 0]}>
-      <group rotation={[0, 0.9, 0]}>
-        <mesh position={[leaf / 2, door.height / 2, 0]} castShadow>
-          <boxGeometry args={[leaf, door.height - 0.04, 0.045]} />
+    <group position={[center.x, elevation, center.y]} rotation={[0, -angle, 0]}>
+      {/* Frame sits in the wall thickness so the opening reads as a doorway, not a floating leaf. */}
+      <mesh position={[-width / 2 + jamb / 2, height / 2, 0]} castShadow>
+        <boxGeometry args={[jamb, height, depth]} />
+        <meshStandardMaterial color={frameColor} roughness={0.78} />
+      </mesh>
+      <mesh position={[width / 2 - jamb / 2, height / 2, 0]} castShadow>
+        <boxGeometry args={[jamb, height, depth]} />
+        <meshStandardMaterial color={frameColor} roughness={0.78} />
+      </mesh>
+      <mesh position={[0, height - jamb / 2, 0]} castShadow>
+        <boxGeometry args={[width, jamb, depth]} />
+        <meshStandardMaterial color={frameColor} roughness={0.78} />
+      </mesh>
+      <mesh position={[0, 0.02, 0]} receiveShadow>
+        <boxGeometry args={[width, 0.04, depth]} />
+        <meshStandardMaterial color="#d8d0c4" roughness={0.9} />
+      </mesh>
+      {/* Leaf hinged on the left jamb, slightly ajar, flush with one face of the wall. */}
+      <group position={[-width / 2 + jamb, 0, depth * 0.18]} rotation={[0, -0.42, 0]}>
+        <mesh position={[leaf / 2, height / 2 - 0.02, 0]} castShadow>
+          <boxGeometry args={[leaf, height - jamb - 0.06, 0.04]} />
           <meshStandardMaterial color="#6d4c34" roughness={0.58} />
+        </mesh>
+        <mesh position={[leaf - 0.1, height * 0.48, 0.025]}>
+          <sphereGeometry args={[0.03, 10, 10]} />
+          <meshStandardMaterial color="#c2a46a" metalness={0.55} roughness={0.35} />
         </mesh>
       </group>
     </group>
